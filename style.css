@@ -637,6 +637,35 @@ nav {
     flex-wrap: wrap;
 }
 
+/* Transparent Hero Social Media Buttons */
+.hero-social-links .social-icon {
+    background: transparent !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: none !important;
+    border-radius: 50% !important;
+}
+
+.hero-social-links .social-icon::before,
+.hero-social-links .social-icon::after {
+    display: none !important;
+}
+
+.hero-social-links .social-icon svg {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.hero-social-links .social-icon:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    border-color: rgba(255, 255, 255, 0.85) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25) !important;
+    transform: translateY(-5px) scale(1.12) !important;
+}
+
 /* Watercolor Social Icons (Artistic Liquid Blob Style) */
 .social-icon {
     display: inline-flex;
