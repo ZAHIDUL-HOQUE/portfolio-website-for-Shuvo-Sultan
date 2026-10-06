@@ -637,96 +637,200 @@ nav {
     flex-wrap: wrap;
 }
 
+/* Watercolor Social Icons (Artistic Liquid Blob Style) */
 .social-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
+    width: 62px;
+    height: 62px;
+    border-radius: 48% 52% 65% 35% / 40% 60% 40% 60%;
     color: #ffffff;
     text-decoration: none;
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease, filter 0.3s ease;
+    transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
     flex-shrink: 0;
     position: relative;
     border: none;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+    animation: watercolorFloat 6s ease-in-out infinite alternate;
+}
+
+.social-icon:nth-child(even) {
+    animation-delay: -3s;
+    border-radius: 55% 45% 40% 60% / 50% 35% 65% 50%;
+}
+
+.social-icon:nth-child(3n) {
+    animation-delay: -1.5s;
+    border-radius: 40% 60% 55% 45% / 60% 45% 55% 40%;
+}
+
+@keyframes watercolorFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        border-radius: 48% 52% 65% 35% / 40% 60% 40% 60%;
+    }
+    50% {
+        transform: translateY(-4px) rotate(2deg);
+        border-radius: 58% 42% 45% 55% / 55% 45% 55% 45%;
+    }
+    100% {
+        transform: translateY(2px) rotate(-2deg);
+        border-radius: 42% 58% 60% 40% / 45% 55% 45% 55%;
+    }
 }
 
 .social-icon svg {
     width: 28px;
     height: 28px;
     fill: currentColor;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+    z-index: 2;
 }
 
 .social-icon:hover {
-    transform: translateY(-5px) scale(1.14);
-    filter: brightness(1.1);
+    transform: translateY(-8px) scale(1.15) rotate(4deg);
+    border-radius: 50% 50% 50% 50%;
+    filter: brightness(1.12) contrast(1.05);
+}
+
+.social-icon:hover svg {
+    transform: scale(1.18);
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.45), transparent 60%),
+                radial-gradient(circle at 75% 80%, rgba(0, 0, 0, 0.25), transparent 65%);
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+    transition: opacity 0.4s ease;
+}
+
+.social-icon::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: scale(0.5);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.social-icon:hover::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 .social-icon.instagram {
-    background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%);
-    box-shadow: 0 6px 20px rgba(253, 29, 29, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(252, 176, 69, 0.95), transparent 60%),
+                linear-gradient(135deg, #a83279 0%, #fd1d1d 50%, #f68822 100%);
+    box-shadow: 0 8px 25px -4px rgba(253, 29, 29, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(120, 0, 60, 0.4);
 }
 
 .social-icon.instagram:hover {
-    box-shadow: 0 10px 28px rgba(253, 29, 29, 0.65);
+    box-shadow: 0 14px 35px rgba(253, 29, 29, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6),
+                inset -3px -3px 10px rgba(120, 0, 60, 0.5);
 }
 
 .social-icon.youtube {
-    background: linear-gradient(135deg, #ff1a1a 0%, #cc0000 100%);
-    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(139, 0, 0, 0.85), transparent 60%),
+                linear-gradient(135deg, #ff416c 0%, #ff1a1a 50%, #b20a2c 100%);
+    box-shadow: 0 8px 25px -4px rgba(255, 26, 26, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(100, 0, 0, 0.45);
 }
 
 .social-icon.youtube:hover {
-    box-shadow: 0 10px 28px rgba(255, 0, 0, 0.65);
+    box-shadow: 0 14px 35px rgba(255, 26, 26, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6);
 }
 
 .social-icon.spotify {
-    background: linear-gradient(135deg, #1ed760 0%, #1db954 100%);
-    box-shadow: 0 6px 20px rgba(30, 215, 96, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(10, 80, 40, 0.8), transparent 60%),
+                linear-gradient(135deg, #11998e 0%, #1ed760 50%, #0575e6 100%);
+    box-shadow: 0 8px 25px -4px rgba(30, 215, 96, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(5, 75, 50, 0.45);
 }
 
 .social-icon.spotify:hover {
-    box-shadow: 0 10px 28px rgba(30, 215, 96, 0.65);
+    box-shadow: 0 14px 35px rgba(30, 215, 96, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6);
 }
 
 .social-icon.apple-music {
-    background: linear-gradient(135deg, #ff2d55 0%, #d91438 100%);
-    box-shadow: 0 6px 20px rgba(255, 45, 85, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(120, 0, 40, 0.85), transparent 60%),
+                linear-gradient(135deg, #ff0844 0%, #ff2d55 50%, #d1004b 100%);
+    box-shadow: 0 8px 25px -4px rgba(255, 45, 85, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(100, 0, 30, 0.45);
 }
 
 .social-icon.apple-music:hover {
-    box-shadow: 0 10px 28px rgba(255, 45, 85, 0.65);
+    box-shadow: 0 14px 35px rgba(255, 45, 85, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6);
 }
 
 .social-icon.linkedin {
-    background: linear-gradient(135deg, #0077b5 0%, #005580 100%);
-    box-shadow: 0 6px 20px rgba(0, 119, 181, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(0, 40, 90, 0.85), transparent 60%),
+                linear-gradient(135deg, #3a7bd5 0%, #0077b5 50%, #00d2ff 100%);
+    box-shadow: 0 8px 25px -4px rgba(0, 119, 181, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(0, 40, 90, 0.45);
 }
 
 .social-icon.linkedin:hover {
-    box-shadow: 0 10px 28px rgba(0, 119, 181, 0.65);
+    box-shadow: 0 14px 35px rgba(0, 119, 181, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6);
 }
 
 .social-icon.imdb {
-    background: linear-gradient(135deg, #f5c518 0%, #e2b100 100%);
-    color: #000000;
-    box-shadow: 0 6px 20px rgba(245, 197, 24, 0.45);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.65), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(180, 120, 0, 0.8), transparent 60%),
+                linear-gradient(135deg, #ffe000 0%, #f5c518 50%, #f5af19 100%);
+    color: #111111;
+    box-shadow: 0 8px 25px -4px rgba(245, 197, 24, 0.6),
+                inset 0 2px 4px rgba(255, 255, 255, 0.6),
+                inset -3px -3px 8px rgba(120, 80, 0, 0.4);
 }
 
 .social-icon.imdb:hover {
     color: #000000;
-    box-shadow: 0 10px 28px rgba(245, 197, 24, 0.7);
+    box-shadow: 0 14px 35px rgba(245, 197, 24, 0.8),
+                inset 0 3px 6px rgba(255, 255, 255, 0.7);
 }
 
 .social-icon.soundcloud {
-    background: linear-gradient(135deg, #ff7700 0%, #ff3300 100%);
-    box-shadow: 0 6px 20px rgba(255, 85, 0, 0.4);
+    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(160, 30, 0, 0.85), transparent 60%),
+                linear-gradient(135deg, #ff4e50 0%, #ff7700 50%, #ff3300 100%);
+    box-shadow: 0 8px 25px -4px rgba(255, 85, 0, 0.55),
+                inset 0 2px 4px rgba(255, 255, 255, 0.4),
+                inset -3px -3px 8px rgba(120, 20, 0, 0.45);
 }
 
 .social-icon.soundcloud:hover {
-    box-shadow: 0 10px 28px rgba(255, 85, 0, 0.65);
+    box-shadow: 0 14px 35px rgba(255, 85, 0, 0.75),
+                inset 0 3px 6px rgba(255, 255, 255, 0.6);
 }
 
 footer {
