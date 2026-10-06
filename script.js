@@ -30,50 +30,43 @@ document.addEventListener('DOMContentLoaded', function () {
         onScroll();
     }
 
-    // Form submission — mailto handler for direct email sending to theshuvosultan@gmail.com
-    const form = document.querySelector('.contact-form');
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
+    // Copy Email to clipboard functionality
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', function () {
+            const email = 'theshuvosultan@gmail.com';
+            const btnText = copyEmailBtn.querySelector('.btn-text');
+            const origText = btnText ? btnText.textContent : 'Copy Address';
 
-            const nameInput = form.querySelector('#contact-name');
-            const emailInput = form.querySelector('#contact-email');
-            const messageInput = form.querySelector('#contact-message');
-
-            const name = nameInput ? nameInput.value.trim() : '';
-            const email = emailInput ? emailInput.value.trim() : '';
-            const message = messageInput ? messageInput.value.trim() : '';
-
-            if (!name || !email || !message) {
-                alert('Please fill in all fields (Name, Email, and Message) before sending.');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert('Please enter a valid email address (e.g. name@example.com).');
-                return;
-            }
-
-            const subject = `Portfolio Contact from ${name}`;
-            const body = `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`;
-            const mailtoUrl = `mailto:theshuvosultan@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-            const btn = form.querySelector('.submit-button');
-            const origText = btn.textContent;
-            btn.textContent = 'Opening Email Client...';
-            btn.disabled = true;
-
-            window.location.href = mailtoUrl;
-
-            setTimeout(() => {
-                btn.textContent = 'Message Prepared!';
+            const handleSuccess = () => {
+                copyEmailBtn.classList.add('copied');
+                if (btnText) btnText.textContent = '✓ Copied!';
                 setTimeout(() => {
-                    btn.textContent = origText;
-                    btn.disabled = false;
-                    form.reset();
-                }, 2500);
-            }, 1000);
+                    copyEmailBtn.classList.remove('copied');
+                    if (btnText) btnText.textContent = origText;
+                }, 2200);
+            };
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(handleSuccess).catch(() => {
+                    // Fallback
+                    const textArea = document.createElement('textarea');
+                    textArea.value = email;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    handleSuccess();
+                });
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                handleSuccess();
+            }
         });
     }
 
